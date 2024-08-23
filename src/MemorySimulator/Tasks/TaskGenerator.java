@@ -10,6 +10,9 @@ import java.util.Random;
 
 public class TaskGenerator {
 
+    private static short MAX_BYTES = 1000;
+    private static int MAX_TIME = 15; // segundos
+
     // imprime los datos de una tarea
     public static void printTask(Task task){
         System.out.println(task.getName() + "\t" + task.getTamano() + " bytes\t" + task.getTiempo() + " seconds");
@@ -20,7 +23,7 @@ public class TaskGenerator {
         // se una semilla (obtenida del tiempo al parecer) para generar un número aleatorio
         Random random = new Random(System.currentTimeMillis());
         // se genera una tarea con un nombre default, un tamaño aleatorio entre 1 y 1000bytes y un tiempo aleatorio entre 1 y 15
-        return new Task("New Task Generate", (short) (random.nextInt(1000)+1) , random.nextInt(15) +1);
+        return new Task("New Task Generate", (short) (random.nextInt(MAX_BYTES)+1) , random.nextInt(MAX_TIME) +1);
     }
 
     public Task[] generateManyTasks(int numberTasks){
@@ -31,7 +34,7 @@ public class TaskGenerator {
         Task[] tasks = new Task[numberTasks];
         // generamos las tareas pedidas en los args
         for(int i = 0; i < numberTasks; i++){
-            tasks[i] = new Task("Task "+(i+1) , (short) (random.nextInt(1000)+1) , random.nextInt(15) + 1);
+            tasks[i] = new Task("Task "+(i+1) , (short) (random.nextInt(MAX_BYTES)+1) , random.nextInt(MAX_TIME) + 1);
         }
         // regresamos unicamente las tareas
         return tasks;
