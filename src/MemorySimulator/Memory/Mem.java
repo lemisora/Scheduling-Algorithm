@@ -9,6 +9,7 @@ public class Mem {
     public short cuarta_part = 174;
     public boolean[MEM_PARTS] available;
 
+    
     public Mem(){
         memory = new short[MEM_RANGE];
         available = new boolean[];
