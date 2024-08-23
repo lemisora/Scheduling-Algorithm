@@ -1,4 +1,4 @@
-package Tasks;
+package MemorySimulator.Tasks;
 public class Task {
     private String nombre;
     private short tamaño;
