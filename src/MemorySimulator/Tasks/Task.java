@@ -1,8 +1,8 @@
 package MemorySimulator.Tasks;
 public class Task {
-    private String nombre;
-    private short tamano;
-    private int tiempo;
+    private final String nombre;
+    private final short tamano;
+    private final int tiempo;
 
     public Task(String name, short tam, int time){
         this.nombre = name;
