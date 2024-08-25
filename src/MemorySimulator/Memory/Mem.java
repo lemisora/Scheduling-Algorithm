@@ -5,7 +5,7 @@ public class Mem {
     public final short MEM_RANGE = 1024;
     public char[] memory; // tiene la informacion de la memoria
     public boolean[] available; // esa parte de la memoria esta disponible
-    Partition [] partitions;
+    public Partition [] partitions;
 
     public final short MEM_PARTS = 4;
     public short prim_part = 230;
