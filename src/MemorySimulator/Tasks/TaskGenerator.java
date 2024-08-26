@@ -91,7 +91,7 @@ public class TaskGenerator {
         return null;
     }
 
-    public static void task_tester_app(){
+    public static void task_generator_tester_app(){
         System.out.println("ONLY TEST PURPOSE\n");
         // se genera constructor
         TaskGenerator taskGenerator = new TaskGenerator(); 
