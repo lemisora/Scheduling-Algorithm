@@ -1,50 +1,41 @@
 package MemorySimulator.Memory;
 
 public class Mem {
-    // La memoria tiene un rango de 1024 bytes
-    public final short MEM_RANGE = 1024;
-    public char[] memory; // tiene la informacion de la memoria
-    public boolean[] available; // esa parte de la memoria esta disponible
-    public Partition [] partitions;
+    public final short MEM_RANGE = 1024; // La memoria tiene un rango de 1024 bytes
+    public final short MEM_PARTS = 4;   //Cantidad de particiones que tendrá la memoria
 
-    public final short MEM_PARTS = 4;
+    public char[] memory; // tiene la informacion de la memoria
+    public boolean[] available; // Con un arreglo de booleanos se determinará que partición se encuentra disponible
+    public Partition [] partitions; //Con un arreglo del objeto partition se mandarán a llamar los métodos para manejar memoria
+
+    //Tamanios de las particiones
     public short prim_part = 230;
     public short seg_part = 120;
     public short ter_part = 500;
     public short cuarta_part = 174;
-
-
-
     
     public Mem(){
         memory = new char[MEM_RANGE];
         available = new boolean[MEM_PARTS];
         for(int i = 0; i < MEM_PARTS; i++){
-            available[i] = false;
+            available[i] = true;
         }
 
-        // crear particiones
-        // no se como automatizar esto con lo que tenemos y necesitamos entregar
+        // Crear particiones
         partitions = new Partition[MEM_PARTS];
-        
-        partitions[0] = new Partition((short) 0, prim_part);
-
-        partitions[1] = new Partition((short) prim_part, seg_part);
-
-        partitions[2] = new Partition((short) seg_part, ter_part);
-
-        partitions[3] = new Partition((short) ter_part, cuarta_part);
+        //La primera particion comienza en 0 y termina en 230
+        partitions[0] = new Partition((short) 0, (short) (prim_part));
+        //La segunda particion comienza en 230 y termina en 350
+        partitions[1] = new Partition(partitions[0].getMemory_end(), seg_part);
+        //La tercera particion comienza en 350 y termina en 850
+        partitions[2] = new Partition(partitions[1].getMemory_end(), ter_part);
+        //La cuarta particion comienza en 850 y termina en 1024
+        partitions[3] = new Partition(partitions[2].getMemory_end(), cuarta_part);
       
         // checar si no se solapan las particiones
         // capaz borramos esto
         for(int i = 0; i < MEM_PARTS; i++){
-            for(int j = 0; j < MEM_PARTS; j++){
-                if(i != j){
-                    if(partitions[i].Overlaps(partitions[j])){
-                        System.out.println("Error: Las particiones se solapan");
-                    }
-                }
-            }
+            System.out.println("Tamaño de la partición "+(i+1)+": "+partitions[i].getMemory_size()+"\nInicio: "+partitions[i].getMemory_start()+"\tFin: "+partitions[i].getMemory_end());
         }
 
         System.out.println("Se ha inicializado la memoria correctamente");
