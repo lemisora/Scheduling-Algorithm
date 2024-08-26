@@ -51,6 +51,9 @@ public class Mem {
         partitions[partition].DeallocateProcess(this);
     }
 
+    public boolean fits_in_partition(short partition, short process_size){
+        return partitions[partition].ItFits(process_size);
+    }
    
 
 //    public static void main(String[] args) {
