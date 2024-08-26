@@ -14,6 +14,18 @@ public class Partition {
         this.memory_end = (short) (memory_start + memory_size);
     }
 
+    public short getMemory_end() {
+        return memory_end;
+    }
+
+    public short getMemory_size() {
+        return memory_size;
+    }
+
+    public short getMemory_start() {
+        return memory_start;
+    }
+
     public boolean IsFree() {
         return is_free;
     }
