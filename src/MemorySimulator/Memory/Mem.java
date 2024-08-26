@@ -5,7 +5,7 @@ public class Mem {
     public final short MEM_PARTS = 4;   //Cantidad de particiones que tendrá la memoria
 
     public char[] memory; // tiene la informacion de la memoria
-    public boolean[] available; // Con un arreglo de booleanos se determinará que partición se encuentra disponible
+    //public boolean[] available; // Con un arreglo de booleanos se determinará que partición se encuentra disponible
     public Partition [] partitions; //Con un arreglo del objeto partition se mandarán a llamar los métodos para manejar memoria
 
     //Tamanios de las particiones
@@ -16,10 +16,10 @@ public class Mem {
     
     public Mem(){
         memory = new char[MEM_RANGE];
-        available = new boolean[MEM_PARTS];
-        for(int i = 0; i < MEM_PARTS; i++){
-            available[i] = true;
-        }
+        //available = new boolean[MEM_PARTS];
+//        for(int i = 0; i < MEM_PARTS; i++){
+//            //available[i] = true;
+//        }
 
         // Crear particiones
         partitions = new Partition[MEM_PARTS];
@@ -31,9 +31,7 @@ public class Mem {
         partitions[2] = new Partition(partitions[1].getMemory_end(), ter_part);
         //La cuarta particion comienza en 850 y termina en 1024
         partitions[3] = new Partition(partitions[2].getMemory_end(), cuarta_part);
-      
-        // checar si no se solapan las particiones
-        // capaz borramos esto
+
         for(int i = 0; i < MEM_PARTS; i++){
             System.out.println("Tamaño de la partición "+(i+1)+": "+partitions[i].getMemory_size()+"\nInicio: "+partitions[i].getMemory_start()+"\tFin: "+partitions[i].getMemory_end());
         }
@@ -55,14 +53,14 @@ public class Mem {
 
    
 
-    public static void main(String[] args) {
-        Mem mem = new Mem();
-        // check if partitions are ok
-        if (mem.prim_part + mem.seg_part + mem.ter_part + mem.cuarta_part != 1024){
-            System.out.println("Error en la asignación de particiones de memoria");
-            System.out.println("La suma de las particiones es: " + (mem.prim_part + mem.seg_part + mem.ter_part + mem.cuarta_part));
-        } else {
-            System.out.println("Particiones de memoria asignadas correctamente");
-        }
-    }
+//    public static void main(String[] args) {
+//        Mem mem = new Mem();
+//        // check if partitions are ok
+//        if (mem.prim_part + mem.seg_part + mem.ter_part + mem.cuarta_part != 1024){
+//            System.out.println("Error en la asignación de particiones de memoria");
+//            System.out.println("La suma de las particiones es: " + (mem.prim_part + mem.seg_part + mem.ter_part + mem.cuarta_part));
+//        } else {
+//            System.out.println("Particiones de memoria asignadas correctamente");
+//        }
+//    }
 }
