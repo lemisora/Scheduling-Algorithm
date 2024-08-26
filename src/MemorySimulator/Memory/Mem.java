@@ -24,7 +24,7 @@ public class Mem {
         // Crear particiones
         partitions = new Partition[MEM_PARTS];
         //La primera particion comienza en 0 y termina en 230
-        partitions[0] = new Partition((short) 0, (short) (prim_part));
+        partitions[0] = new Partition((short) 0, prim_part);
         //La segunda particion comienza en 230 y termina en 350
         partitions[1] = new Partition(partitions[0].getMemory_end(), seg_part);
         //La tercera particion comienza en 350 y termina en 850
