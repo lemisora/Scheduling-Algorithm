@@ -25,6 +25,16 @@ public class TaskGenerator {
         // se genera una tarea con un nombre default, un tamaño aleatorio entre 1 y 1000bytes y un tiempo aleatorio entre 1 y 15
         return new Task("New Task Generate", (short) (random.nextInt(MAX_BYTES)+1) , random.nextInt(MAX_TIME) +1);
     }
+    public Task generateTask(String name){
+        // se una semilla (obtenida del tiempo al parecer) para generar un número aleatorio
+        Random random = new Random(System.currentTimeMillis());
+        // se genera una tarea con un nombre default, un tamaño aleatorio entre 1 y 1000bytes y un tiempo aleatorio entre 1 y 15
+        return new Task(name, (short) (random.nextInt(MAX_BYTES)+1) , random.nextInt(MAX_TIME) +1);
+    }
+    public Task generateTask(String name, short size, short seconds_time){
+        // Genera un task con los valores enviados
+        return new Task(name, size, seconds_time);
+    }
 
     public Task[] generateManyTasks(int numberTasks){
         // se una semilla (obtenida del tiempo al parecer) para generar un número aleatorio
