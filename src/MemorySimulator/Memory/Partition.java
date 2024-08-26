@@ -37,9 +37,6 @@ public class Partition {
         if (is_free && ItFits(process_size)) {
             this.process_name = process_name;
             is_free = false;
-            for (short i = memory_start; i < memory_end; i++) {
-                memory.available[i] = false;
-            }
             return true;
         }
         return false;
@@ -48,13 +45,10 @@ public class Partition {
     public void DeallocateProcess(Mem memory) {
         is_free = true;
         process_name = null;
-        for (short i = memory_start; i < memory_end; i++) {
-            memory.available[i] = true;
-        }
     }
 
-    public boolean Overlaps(Partition partition) {
-        return (this.memory_start >= partition.memory_start && this.memory_start <= partition.memory_end) ||
-                (this.memory_end >= partition.memory_start && this.memory_end <= partition.memory_end);
-    }
+//    public boolean Overlaps(Partition partition) {
+//        return (this.memory_start >= partition.memory_start && this.memory_start <= partition.memory_end) ||
+//                (this.memory_end >= partition.memory_start && this.memory_end <= partition.memory_end);
+//    }
 }
