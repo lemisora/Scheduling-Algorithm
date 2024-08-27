@@ -2,13 +2,18 @@ package MemorySimulator.Tasks;
 
 public class QueueTask {
     private Task[] tasks;
-    private int size;
+    private boolean tareasGeneradas;
+    private final int size;
     private int front;
     private int rear;
 
     public QueueTask(int size) {
         this.size = size;
-        this.tasks = new Task[size];
+        TaskGenerator cargador = new TaskGenerator();
+        if((this.tasks = cargador.importTasksFromFile("tareas.txt")) == null){
+            this.tasks = cargador.generateManyTasks(20);
+            cargador.exportTasksToFile(this.tasks);
+        }
         this.front = 0;
         this.rear = 0;
     }
@@ -50,16 +55,20 @@ public class QueueTask {
         }
     }
 
-    public void printQueue() {
-        if (!isEmpty()) {
-            int i = this.front;
-            while (i != this.rear) {
-                Task task = this.tasks[i];
-                System.out.println(task.getName() + "\t" + task.getTamano() + " bytes\t" + task.getTiempo() + " seconds");
-                i = (i + 1) % this.size;
-            }
-        } else {
-            System.out.println("Queue is empty");
-        }
+    public int getTasksSize() {
+        return tasks.length;
     }
+
+    //    public void printQueue() {
+//        if (!isEmpty()) {
+//            int i = this.front;
+//            while (i != this.rear) {
+//                Task task = this.tasks[i];
+//                System.out.println(task.getName() + "\t" + task.getTamano() + " bytes\t" + task.getTiempo() + " seconds");
+//                i = (i + 1) % this.size;
+//            }
+//        } else {
+//            System.out.println("Queue is empty");
+//        }
+//    }
 }
