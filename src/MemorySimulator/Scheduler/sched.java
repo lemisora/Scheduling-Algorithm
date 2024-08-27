@@ -1,21 +1,28 @@
 package MemorySimulator.Scheduler;
 
+import MemorySimulator.Tasks.TaskGenerator;
 import MemorySimulator.Tasks.Task;
+import MemorySimulator.Tasks.QueueTask;
 
 public class sched extends Thread{
     /*Para el algoritmo de despacho se usará un modelo FIFO (el primero que entra será el primero en salir)*/
     private short partition_to_use = 0;
     private int discarded_tasks = 0;
     private int completed_tasks = 0;
-    private Task[] tareas;
+    private QueueTask tareasPendientes;
+
+    public sched(){
+        tareasPendientes = new QueueTask(5);
+        this.start();
+    }
 
     private void processTasks(){
-
+        System.out.println("Cantidad de tareas: "+ tareasPendientes.getTasksSize());
     }
 
     @Override
     public void run(){
-
+        processTasks();
     }
 
 //        System.out.println("Iniciando Algoritmo");
