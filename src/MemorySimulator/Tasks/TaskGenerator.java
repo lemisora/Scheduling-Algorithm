@@ -1,4 +1,5 @@
 package MemorySimulator.Tasks;
+import MemorySimulator.Queue.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -9,7 +10,9 @@ import java.util.List;
 import java.util.Random;
 
 public class TaskGenerator {
-
+    //instancia de la lista ligada para que podamos utilizar el metodo de "encolar" 
+    private ListaLigada LiLa =new ListaLigada();
+    
     private final short MAX_BYTES = 1000;
     private final int MAX_TIME = 50; // segundos
 
@@ -78,7 +81,11 @@ public class TaskGenerator {
 
             // se importan las tareas del archivo
             for (int i = 0; i < parts.length; i += 3) {
-                tasks.add(new Task(parts[i], Short.parseShort(parts[i + 1]), Integer.parseInt(parts[i + 2])));
+                //se crea una instancia nueva con los atributos de cada iteracion
+                Task proces = new Task(parts[i], Short.parseShort(parts[i + 1]), Integer.parseInt(parts[i + 2]));
+                //se agrega esa instancia a la Linkedlist
+                LiLa.agregarNodo(proces);
+                //tasks.add(new Task(parts[i], Short.parseShort(parts[i + 1]), Integer.parseInt(parts[i + 2])));
             }
             
             // se regresan las tareas
