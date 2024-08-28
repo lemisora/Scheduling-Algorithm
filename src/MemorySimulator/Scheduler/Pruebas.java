@@ -1,7 +1,5 @@
 package MemorySimulator.Scheduler;
-import MemorySimulator.Tasks.Task;
 import MemorySimulator.Tasks.TaskGenerator;
-import MemorySimulator.Queue.ListaLigada;
 public class Pruebas {
     
     public static void main(String[] args) {
@@ -11,7 +9,7 @@ public class Pruebas {
         clastask.exportTasksToFile( clastask.generateManyTasks(20));
         //clastask.importTasksFromFile(tasks.txt);
 
-        Sched2 imprimeLista = new Sched2(clastask.importTasksFromFile(null),"Lista1");
+        Sched2 imprimeLista = new Sched2(clastask.importTasksFromFile("tasks.txt"),"Lista1");
 
         Thread hilo1 =new Thread(imprimeLista);
         Thread hilo2 =new Thread(imprimeLista);
