@@ -13,6 +13,9 @@ public class ListaLigada {
         return head == null;                
     }
 
+    public Nodo getHead(){
+        return head;
+    }
     public void agregarNodo(Task proceso){
         if(estaVacia()){
             Nodo nuevoNodo = new Nodo(proceso);
