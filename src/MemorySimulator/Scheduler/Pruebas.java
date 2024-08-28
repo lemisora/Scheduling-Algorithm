@@ -6,7 +6,7 @@ public class Pruebas {
         TaskGenerator clastask =new TaskGenerator();
 
         clastask.generateManyTasks(20);
-        clastask.exportTasksToFile( clastask.generateManyTasks(20));
+        TaskGenerator.exportTasksToFile(clastask.generateManyTasks(20));
         //clastask.importTasksFromFile(tasks.txt);
 
         Sched2 imprimeLista = new Sched2(clastask.importTasksFromFile("tasks.txt"),"Lista1");
