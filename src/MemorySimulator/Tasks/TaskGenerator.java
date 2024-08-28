@@ -70,11 +70,12 @@ public class TaskGenerator {
         }
     }
 
-    public ListaLigada importTasksFromFile(String filename) {
+    public static ListaLigada importTasksFromFile(String filename) {
         // se lee el archivo tasks.txt
+        ListaLigada LiLa = new ListaLigada();
+
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
-            List<Task> tasks = new ArrayList<>();
             // el archivo a no contener saltos de linea, se puede leer todo el archivo de una vez
             line = reader.readLine();
             String[] parts = line.split(",");
