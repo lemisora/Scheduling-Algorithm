@@ -37,6 +37,10 @@ public class Mem {
         return partitions[partition].IsFree();
     }
 
+    public int MemoryParts(){
+        return MEM_PARTS;
+    }
+
     public boolean partition_allocate_process(int partition, String process_name, short process_size){
         return partitions[partition].AllocateProcess(process_name, process_size, this);
     }
