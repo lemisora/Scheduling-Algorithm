@@ -4,9 +4,14 @@ import MemorySimulator.Tasks.Task;
 
 public class ListaLigada {
     private Nodo head;
+    private int size=0;
 
     public ListaLigada(){
         this.head=null;
+    }
+
+    public int getSize(){
+        return size;
     }
 
     public boolean estaVacia(){
@@ -28,6 +33,7 @@ public class ListaLigada {
             }
             referencia.sig = nuevoNodo;
         }
+        size++;
     }
 
     public void recorrido() {
@@ -40,4 +46,16 @@ public class ListaLigada {
 			}
 		}
 	}
+
+    public Nodo pull_node() {
+        if(estaVacia()) {
+            // System.err.println("No se puede realizar debido a que la lista esta vacia \n ");
+            return null;
+        }else {
+            Nodo nodoactual = head;
+            this.head = nodoactual.getSig();
+            size--;
+            return nodoactual;
+        }
+    }
 }
