@@ -1,11 +1,9 @@
 package MemorySimulator;
 import MemorySimulator.Memory.*;
-import MemorySimulator.Tasks.Task;
 import MemorySimulator.Tasks.TaskGenerator;
 import MemorySimulator.Scheduler.Sched2;
 import MemorySimulator.Scheduler.sched;
 public class Main {
-    static Mem memoria;
     public static void main(String[] args) throws InterruptedException {
         //TaskGenerator.exportTasksToFile(new TaskGenerator().generateManyTasks(20));
         
