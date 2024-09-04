@@ -16,7 +16,8 @@ public class Main {
 //            colas[i] = new ListaLigada();
 //        }
 
-        tareas = TaskGenerator.generateManyTasks(20);
+
+        tareas = TaskGenerator.generateManyTasks(10);
         TaskGenerator.exportTasksToFile(tareas);
         colas = TaskGenerator.importTasksFromFileToArray("tasks.txt");
 
