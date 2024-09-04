@@ -8,7 +8,7 @@ public class Pruebas {
         TaskGenerator clastask =new TaskGenerator();
         //clastask.generateManyTasks(20);
         clastask.exportTasksToFile( clastask.generateManyTasks(20));
-        clastask.importTasksFromFile("tasks.txt");
+        //clastask.importTasksFromFile("tasks.txt");
         //TaskGenerator clastask =new TaskGenerator();
         AsignaList asigna =new AsignaList(clastask.importTasksFromFile("tasks.txt"));
 
