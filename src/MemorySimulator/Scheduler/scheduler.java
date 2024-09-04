@@ -1,95 +1,57 @@
 package MemorySimulator.Scheduler;
 import MemorySimulator.Memory.Mem;
-import MemorySimulator.Queue.ListaLigada;
-import MemorySimulator.Queue.Nodo;
+import MemorySimulator.Queue.*;
 import MemorySimulator.Tasks.Task;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class scheduler extends Thread {
-    private final ListaLigada lista_ligada;
-    private final String nombreLista;
-    private final int numProcesadores;
+    private final ListaLigada[] colas;
     private final Mem memory_to_use;
-
-    public scheduler(ListaLigada lis, String nombreLista, int numProcesadores, Mem memory) {
-        this.lista_ligada = lis;
-        this.nombreLista = nombreLista;
-        this.numProcesadores = numProcesadores;
+    private boolean running = true;
+    public scheduler(ListaLigada[] queue, Mem memory) {
+        this.colas = queue;
         this.memory_to_use = memory;
     }
 
+    //Clase interna para procesar tareas
+    private class ProcesadorTareas extends Thread{
+        private final ListaLigada cola;
+        private final int part;
 
+        public ProcesadorTareas(ListaLigada queue, int part) {
+            this.cola = queue;
+            this.part = part;
+        }
 
-//    @Override
-//    public void run() {
-//
-//        System.out.println("Nombre de la lista: " + nombreLista);
-//        System.out.println("Numero de procesadores: " + this.numProcesadores + "\n");
-//        System.out.println("Particiones: 1-" + memory_to_use.prim_part +
-//            " 2-" + memory_to_use.seg_part +
-//            " 3-" + memory_to_use.ter_part +
-//            " 4-"+ memory_to_use.cuarta_part+ "\n");
-//
-//        // Crear un ExecutorService con un número fijo de hilos
-//        ExecutorService executor = Executors.newFixedThreadPool(this.numProcesadores);
-//
-//        int counter = 0;
-//        while (!lista_ligada.estaVacia() || counter < lista_ligada.getSize()) {
-//
-//            // PRIMERO EN ENTRAR A LA COLA, PRIMERO EN SALIR
-//            executor.submit(() -> {
-//                Nodo nodo = lista_ligada.pull_node();
-//                Task task = nodo.getTask();
-//
-//                boolean allocated = false;
-//
-//                try {
-//                    // String threadName = Thread.currentThread().getName();
-//                    for (int i = 0; i < memory_to_use.MemoryParts(); i++) {
-//                        if (memory_to_use.fits_in_partition(i, task.getTamano())) {
-//
-//                            while (!memory_to_use.partition_is_free(i)) {
-//                                //"Waiting partition to be free"
-//                            }
-//                            memory_to_use.partition_allocate_process(i, task.getName(), task.getTamano());
-//                            System.out.println("Proceso " + task.getName() + " de " + task.getTamano() + " bytes. Ha sido asignado a la particion " + (i+1) + "\n");
-//                            allocated = true;
-//                            Thread.sleep(task.getTiempo() * 100);
-//                            memory_to_use.partition_deallocate_process(i);
-//                            break;
-//                        }
-//                    }
-//
-//                    if (!allocated){
-//                        System.out.println("Proceso " + task.getName() + " de " + task.getTamano() + " bytes. No se pudo asignar\n");
-//                    }
-//
-//                } catch (InterruptedException e) {
-//                    System.out.println(nombreLista + " fue interrumpida");
-//                }
-//                if (allocated) {
-//                    System.out.println("Proceso " + task.getName() + " de " + task.getTiempo() + " segundos. Ha terminado\n");
-//                }
-//
-//            });
-//
-//        }
-//
-//        // Cerrar el ExecutorService
-//        executor.shutdown();
-//        try {
-//            // Esperar a que todas las tareas terminen
-//            if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
-//                executor.shutdownNow();
-//
-//            }
-//        } catch (InterruptedException e) {
-//            executor.shutdownNow();
-//        }
-//
-//        System.out.println(nombreLista + " ha terminado de imprimir");
-//    }
-    
+        @Override
+        public void run(){
+            while (running){
+                Nodo nodoActual = cola.pull_node();
+                if(nodoActual != null){
+                    Task tarea = nodoActual.getTask();
+                    if(memory_to_use.partition_allocate_process(part, tarea.getName(), tarea.getTamano() ) ){
+                        System.out.println("Tarea "+tarea.getName()+" asignada a partición "+part );
+                        try {
+                            Thread.sleep(tarea.getTiempo()* 1000L);
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                        }
+                        memory_to_use.partition_deallocate_process(part);
+                        System.out.println("Tarea "+tarea.getName()+" ha finalizado");
+                    } else {
+                        System.out.println("Tarea "+tarea.getName()+" no cabe en la partición "+part );
+                    }
+                }else{
+                    running = false;
+                }
+            }
+        }
+    }
+    //Fin clase interna
+
+    @Override
+    public void run(){
+        for (int i = 0; i < colas.length; i++) {
+            new ProcesadorTareas(colas[i], i).start();
+        }
+    }
 }
