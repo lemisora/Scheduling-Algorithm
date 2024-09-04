@@ -23,23 +23,23 @@ public class AsignaList {
         while(referencia != null){
             Task task =referencia.getTask();
             //230, 120, 500, 174
-            if(task.getTamano() <= 120 ){
+            if(task.getTamano()<121){
                 lista1(task);
                 lis.quitarNodInic();
             }
-            if(task.getTamano() <= 174 ){
+            if(task.getTamano()>120 && task.getTamano()<175 ){
                 lista2(task);
                 lis.quitarNodInic();
             }
-            if(task.getTamano() <= 230 ){
+            if(task.getTamano()>174 && task.getTamano()<231 ){
                 lista3(task);
                 lis.quitarNodInic();
             }
-            if(task.getTamano() <= 500 ){
+            if(task.getTamano()>230 && task.getTamano()<501 ){
                 lista4(task);
                 lis.quitarNodInic();
             }
-            if(task.getTamano() >= 500){
+            if(task.getTamano() > 501){
                 System.out.println("Proceso eliminado");
                 lis.quitarNodInic();
             }
