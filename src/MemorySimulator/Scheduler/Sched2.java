@@ -26,6 +26,7 @@ public class Sched2 implements Runnable {
                 System.out.println(nombreLista + "fue interrumpida");
             }
             referencia = referencia.getSig();
+            lis.quitarNodInic();
         }
         //System.out.println(nombreLista + " ha terminado de imprimir");
     }
