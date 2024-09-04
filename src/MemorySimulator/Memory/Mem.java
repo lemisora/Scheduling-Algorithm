@@ -1,16 +1,16 @@
 package MemorySimulator.Memory;
 
 public class Mem {
-    private final int MEM_RANGE = 1024; // La memoria tiene un rango de 1024 bytes
-    private final int MEM_PARTS = 4;   //Cantidad de particiones que tendrá la memoria
+    public final static int MEM_RANGE = 1024; // La memoria tiene un rango de 1024 bytes
+    private static final int MEM_PARTS = 4;   //Cantidad de particiones que tendrá la memoria
 
     public Partition [] partitions; //Con un arreglo del objeto partition se mandarán a llamar los métodos para manejar memoria
 
     //Tamanios de las particiones
-    public int prim_part = 230;
-    public int seg_part = 120;
-    public int ter_part = 500;
-    public int cuarta_part = 174;
+    public static int prim_part = 230;
+    public static int seg_part = 120;
+    public static int ter_part = 500;
+    public static int cuarta_part = 174;
     
     public Mem(){
         // Crear particiones
@@ -36,7 +36,7 @@ public class Mem {
         return partitions[partition].IsFree();
     }
 
-    public int MemoryParts(){
+    public static int MemoryParts(){
         return MEM_PARTS;
     }
 
