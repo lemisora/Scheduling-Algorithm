@@ -11,8 +11,7 @@ import java.util.Random;
 public class TaskGenerator {
     //instancia de la lista ligada para que podamos utilizar el metodo de "encolar" 
     private ListaLigada LiLa = new ListaLigada();
-    private static Mem mem_sample = new Mem();
-    private static final int MAX_BYTES = 1000;
+    private static final int MAX_BYTES = 800;
     private static final int MAX_TIME = 50; // segundos
 
     // imprime los datos de una tarea
@@ -82,11 +81,10 @@ public class TaskGenerator {
 
     public static ListaLigada[] importTasksFromFileToArray(String filename) {
         // se lee el archivo tasks.txt
-        ListaLigada[] LiLa = new ListaLigada[mem_sample.MemoryParts()];
-        for (int i = 0; i < mem_sample.MemoryParts(); i++) {
+        ListaLigada[] LiLa = new ListaLigada[Mem.MemoryParts()];
+        for (int i = 0; i < Mem.MemoryParts(); i++) {
             LiLa[i] = new ListaLigada();
         }
-        int part = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             // el archivo a no contener saltos de linea, se puede leer todo el archivo de una vez
@@ -98,16 +96,25 @@ public class TaskGenerator {
                 //se crea una instancia nueva con los atributos de cada iteracion
                 Task proces = new Task(parts[i],  Integer.parseInt(parts[i + 1]), Integer.parseInt(parts[i + 2]));
                 //se agrega esa instancia a la Linkedlist correspondiente
-                for(int j = 0; j < mem_sample.MemoryParts(); j++){
-                    /* Mejoras a futuro
-                    if(mem_sample.fits_in_partition(j, proces.getTamano() ) ){
-                        LiLa[j].agregarNodo(proces);
-                    }
-                     */
-                    LiLa[j].agregarNodo(proces);
+                if(proces.getTamano() <= Mem.seg_part ){
+                    LiLa[1].agregarNodo(proces);
+                } else if(proces.getTamano() <= Mem.cuarta_part){
+                    LiLa[3].agregarNodo(proces);
+                } else if(proces.getTamano() <= Mem.prim_part){
+                    LiLa[0].agregarNodo(proces);
+                } else if(proces.getTamano() < Mem.MEM_RANGE){
+                    LiLa[2].agregarNodo(proces);
+                }else{
+                    System.out.println("Tarea "+proces.getName()+" no puede asignarse a ninguna partición");
                 }
             }
 
+            // Imprimir contenido de cada lista ligada
+            for (int i = 0; i < LiLa.length; i++) {
+                System.out.println("Contenido de la cola " + i + ":");
+                LiLa[i].imprimirContenido();
+                System.out.println();
+            }
             // se regresan las tareas
             return LiLa;
         } catch (IOException e) {
