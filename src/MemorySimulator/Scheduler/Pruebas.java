@@ -1,20 +1,29 @@
 package MemorySimulator.Scheduler;
 //import MemorySimulator.Tasks.TaskGenerator;
 import MemorySimulator.Queue.ListaLigada;
+import MemorySimulator.Tasks.TaskGenerator;
 public class Pruebas {
     
     public static void main(String[] args) {
+        TaskGenerator clastask =new TaskGenerator();
+        //clastask.generateManyTasks(20);
+        clastask.exportTasksToFile( clastask.generateManyTasks(20));
+        clastask.importTasksFromFile("tasks.txt");
         //TaskGenerator clastask =new TaskGenerator();
-        AsignaList asigna =new AsignaList();
+        AsignaList asigna =new AsignaList(clastask.importTasksFromFile("tasks.txt"));
 
         //clastask.generateManyTasks(20);
         //clastask.exportTasksToFile( clastask.generateManyTasks(20));
         //clastask.importTasksFromFile("tasks.txt");
-
-        Sched2 imprimeLista1 = new Sched2(asigna.lista1(null),"Lista1");
-        Sched2 imprimeLista2 = new Sched2(asigna.lista2(null),"Lista2");
-        Sched2 imprimeLista3 = new Sched2(asigna.lista3(null),"Lista3");
-        Sched2 imprimeLista4 = new Sched2(asigna.lista4(null),"Lista4");
+        asigna.despacho();
+        asigna.getLista1();
+        asigna.getLista2();
+        asigna.getLista3();
+        asigna.getLista4();
+        Sched2 imprimeLista1 = new Sched2(asigna.getLista1(),"Lista1");
+        Sched2 imprimeLista2 = new Sched2(asigna.getLista2(),"Lista2");
+        Sched2 imprimeLista3 = new Sched2(asigna.getLista3(),"Lista3");
+        Sched2 imprimeLista4 = new Sched2(asigna.getLista4(),"Lista4");
 
 
 
