@@ -79,15 +79,17 @@ public class TaskGenerator {
             line = reader.readLine();
             String[] parts = line.split(",");
 
+            System.out.println("IMPORTANDO TASKS DEL ARCHIVO TXT \n");
             // se importan las tareas del archivo
             for (int i = 0; i < parts.length; i += 3) {
                 //se crea una instancia nueva con los atributos de cada iteracion
                 Task proces = new Task(parts[i], Short.parseShort(parts[i + 1]), Integer.parseInt(parts[i + 2]));
                 //se agrega esa instancia a la Linkedlist
                 LiLa.agregarNodo(proces);
+                System.out.println("\n Nombre: "+proces.getName()+", Tamanio: "+proces.getTamano()+", Tiempo: "+proces.getTiempo());
                 //tasks.add(new Task(parts[i], Short.parseShort(parts[i + 1]), Integer.parseInt(parts[i + 2])));
             }
-            
+            System.out.println("TASK CARGADOS EN LINKEDLIST INICIAL \n");
             // se regresan las tareas
             return LiLa;
         } catch (IOException e) {
