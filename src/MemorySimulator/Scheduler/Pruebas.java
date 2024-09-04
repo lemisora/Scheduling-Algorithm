@@ -7,7 +7,7 @@ public class Pruebas {
     public static void main(String[] args) {
         TaskGenerator clastask =new TaskGenerator();
         //clastask.generateManyTasks(20);
-        clastask.exportTasksToFile( clastask.generateManyTasks(20));
+        clastask.exportTasksToFile( clastask.generateManyTasks(5));
         //clastask.importTasksFromFile("tasks.txt");
         //TaskGenerator clastask =new TaskGenerator();
         AsignaList asigna =new AsignaList(clastask.importTasksFromFile("tasks.txt"));
@@ -57,6 +57,7 @@ public class Pruebas {
         Thread hilo3 =new Thread(imprimeLista3);
         Thread hilo4 =new Thread(imprimeLista4);
 
+        long starTime =  System.currentTimeMillis();
 
         hilo1.start();
         hilo2.start();
@@ -69,6 +70,9 @@ public class Pruebas {
             hilo2.join();
             hilo3.join();
             hilo4.join();
+            long endtime = System.currentTimeMillis();
+            long excutionTime = endtime-starTime;
+            System.out.println("tiempo de ejecucuion: "+ (excutionTime/1000)+ "segundos ");
         } catch (InterruptedException e) {
             System.out.println("El hilo principal fue interrumpido.");
         }
