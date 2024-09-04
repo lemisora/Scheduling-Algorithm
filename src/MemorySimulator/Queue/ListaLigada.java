@@ -30,6 +30,14 @@ public class ListaLigada {
         }
     }
 
+    public void quitarNodInic(){
+        if(estaVacia()) {
+			System.out.println("No se puede realizar debido a que la lista esta vacia \n ");
+		}else {
+			head = head.sig;
+		}
+    }
+
     public void recorrido() {
 		if(estaVacia()) {
 			System.out.println("No se puede realizar debido a que la lista esta vacia \n ");
