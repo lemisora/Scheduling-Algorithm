@@ -8,7 +8,6 @@ public class scheduler extends Thread {
     private final Mem memory_to_use;
     public int completadas = 0;
     public int descartadas = 0;
-    private boolean running = true;
     private Thread[] hilos;
 
     public scheduler(ListaLigada[] queue, Mem memory) {
@@ -30,7 +29,7 @@ public class scheduler extends Thread {
 
         @Override
         public void run(){
-            while (running){
+            while (true){
                 Nodo nodoActual = cola.pull_node();
                 if(nodoActual != null){
                     Task tarea = nodoActual.getTask();
@@ -49,8 +48,7 @@ public class scheduler extends Thread {
                         descartadas++;
                     }
                 }else{
-                    running = false;
-//                    System.out.println("Tareas finalizadas: "+ completadas+"\nTareas descartadas: "+descartadas+"\n");
+                    break;
                 }
             }
         }
