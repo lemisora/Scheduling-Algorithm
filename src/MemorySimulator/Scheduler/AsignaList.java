@@ -12,15 +12,13 @@ public class AsignaList {
     ListaLigada lis4=new  ListaLigada();
     //private Nodo nod;
     
-    public AsignaList(){
+    public AsignaList(ListaLigada lis){
+        this.lis = lis;
         
     }
 
     public void despacho(){
-        TaskGenerator clastask =new TaskGenerator();
-        clastask.generateManyTasks(20);
-        clastask.exportTasksToFile( clastask.generateManyTasks(20));
-        clastask.importTasksFromFile("tasks.txt");
+        
         Nodo referencia = lis.getHead();
         while(referencia != null){
             Task task =referencia.getTask();
@@ -70,6 +68,21 @@ public class AsignaList {
         return lis4;
     }
 
+    public ListaLigada getLista1(){
+        return lis1;
+    }
+
+    public ListaLigada getLista2(){
+        return lis2;
+    }
+
+    public ListaLigada getLista3(){
+        return lis3;
+    }
+
+    public ListaLigada getLista4(){
+        return lis4;
+    }
 
         
     }
