@@ -40,7 +40,7 @@ public class AsignaList {
                 lis.quitarNodInic();
             }
             if(task.getTamano() > 501){
-                System.out.println("Proceso eliminado");
+                System.out.println("Proceso: "+ task.getName()+ " eliminado");
                 lis.quitarNodInic();
             }
             referencia = referencia.getSig();
