@@ -58,4 +58,17 @@ public class ListaLigada {
             return nodoactual;
         }
     }
+    public void imprimirContenido() {
+        if (estaVacia()) {
+            System.out.println("La lista está vacía.");
+        } else {
+            Nodo nodoActual = head;
+            while (nodoActual != null) {
+                Task tarea = nodoActual.getTask();
+                System.out.println(tarea.getName() + "\t" + tarea.getTamano() + " bytes\t" + tarea.getTiempo() + " seconds");
+                nodoActual = nodoActual.getSig();
+            }
+        }
+    }
+
 }
