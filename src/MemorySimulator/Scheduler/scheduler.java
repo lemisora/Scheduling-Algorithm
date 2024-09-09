@@ -3,9 +3,13 @@ import MemorySimulator.Memory.Mem;
 import MemorySimulator.Queue.*;
 import MemorySimulator.Tasks.Task;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class scheduler extends Thread {
     private final ListaLigada[] colas;
     private final Mem memory_to_use;
+    private boolean[] colaVacia;
     public int completadas = 0;
     public int descartadas = 0;
     private Thread[] hilos;
@@ -14,6 +18,7 @@ public class scheduler extends Thread {
         this.colas = queue;
         this.memory_to_use = memory;
         this.hilos = new Thread[queue.length];
+        this.colaVacia = new boolean[queue.length];
         System.out.println("\n------Comienzo de Scheduler------");
     }
 
@@ -70,5 +75,16 @@ public class scheduler extends Thread {
             }
         }
         System.out.println("\nTareas finalizadas: "+ completadas+"\nTareas descartadas: "+descartadas+"\n");
+    }
+
+    public void reOrdenaCola(){
+        ArrayList <Integer> Indices = new ArrayList<>();
+        for (int i = 0; i < colas.length; i++){
+            colaVacia[i] = colas[i].estaVacia();
+            if(colaVacia[i])
+                Indices.add(i);
+        }
+        if(!Indices.isEmpty())
+            System.out.println("Las colas vacías son las siguientes "+ Arrays.toString(Indices.toArray()));
     }
 }
