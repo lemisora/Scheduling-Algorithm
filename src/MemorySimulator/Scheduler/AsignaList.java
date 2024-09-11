@@ -12,68 +12,76 @@ public class AsignaList {
     ListaLigada lis2=new  ListaLigada();
     ListaLigada lis3=new  ListaLigada();
     ListaLigada lis4=new  ListaLigada();
-    //private Nodo nod;
+    
     
     public AsignaList(ListaLigada lis){
         this.lis = lis;
         
     }
 
-    public void despacho(){
-        
-        Nodo referencia = lis.getHead();
-        while(referencia != null){
-            Task task =referencia.getTask();
-            //230, 120, 500, 174
-            if(task.getTamano()<121){
-                if(aux1<=aux2){
-                    lista1(task);
-                    lis.quitarNodInic();
-                }
-            }
-            //lo que se podria hacer es modificar los menor que para que asi se ordene con cada if 
-            //cada if deberia de tener un if en el que dependiendo de auxN se asigne o no 
-            if( task.getTamano()<175 ){
-                if(aux2<aux1 && task.getTamano()<121){
-                    lista2(task);
-                    lis.quitarNodInic();
-                }
-                if(aux2<=aux3 && task.getTamano()>120 ){
-                    lista2(task);
-                    lis.quitarNodInic();
-                }
-                
-            }
-            if(task.getTamano()>120 && task.getTamano()<231 ){
-                if(aux3<aux2 && task.getTamano()<175){
-                    lista3(task);
-                    lis.quitarNodInic();
-                }
-                if(aux3<=aux4 && task.getTamano()>174){
-                    lista3(task);
-                    lis.quitarNodInic();
-                }
-                
-            }
-            if(task.getTamano()>174 && task.getTamano()<501 ){
-                if(aux4<aux3 && task.getTamano()<231){
-                    lista4(task);
-                    lis.quitarNodInic();
-                }
-                if(task.getTamano()>230){
-                    lista4(task);
-                    lis.quitarNodInic();
-                }
-            }
-            if(task.getTamano() > 500){
-                System.out.println("Proceso: "+ task.getName()+ " eliminado");
-                lis.quitarNodInic();
-            }
 
+    
+    public void despacho() {
+        Nodo referencia = lis.getHead();
+        while (referencia != null) {
+            Task task = referencia.getTask();
+            boolean nodoAsignado = false;
+    
+            // 230, 120, 500, 174
+            if (task.getTamano() < 121 && aux1 < aux2) {
+                lista1(task);
+                lis.quitarNodInic();
+                nodoAsignado = true;
+            }
+    
+            else if (task.getTamano() < 175 && !nodoAsignado) {
+                if (aux2 <= aux1 && task.getTamano() < 121) {
+                    lista2(task);
+                    lis.quitarNodInic();
+                    nodoAsignado = true;
+                } else if (aux2 <= aux3 && task.getTamano() > 120) {
+                    lista2(task);
+                    lis.quitarNodInic();
+                    nodoAsignado = true;
+                }
+            }
+    
+            else if (task.getTamano() > 120 && task.getTamano() < 231 && !nodoAsignado) {
+                if (aux3 < aux2 && task.getTamano() < 175) {
+                    lista3(task);
+                    lis.quitarNodInic();
+                    nodoAsignado = true;
+                } else if (aux3 <= aux4 && task.getTamano() > 174) {
+                    lista3(task);
+                    lis.quitarNodInic();
+                    nodoAsignado = true;
+                }
+            }
+    
+            else if (task.getTamano() > 174 && task.getTamano() < 501 && !nodoAsignado) {
+                if (aux4 < aux3 && task.getTamano() < 231) {
+                    lista4(task);
+                    lis.quitarNodInic();
+                    nodoAsignado = true;
+                } else if (task.getTamano() > 230) {
+                    lista4(task);
+                    lis.quitarNodInic();
+                    nodoAsignado = true;
+                }
+            }
+    
+            else if (task.getTamano() > 500 && !nodoAsignado) {
+                System.out.println("Proceso: " + task.getName() + " eliminado");
+                lis.quitarNodInic();
+                nodoAsignado = true;
+            }
+    
             referencia = referencia.getSig();
-        
         }
     }
+    
+
+
 
     public int getAux1(){
         return aux1;
@@ -89,13 +97,6 @@ public class AsignaList {
 
     public int getAux4(){
         return aux4;
-    }
-
-    //Muy posible de BORRAR
-    public void reasig(){
-        if(getAux1()<getAux2()){
-            lis1.agregarNodo(null);
-        }
     }
 
     public ListaLigada lista1(Task proces ){
