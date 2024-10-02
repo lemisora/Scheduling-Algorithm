@@ -22,7 +22,7 @@ public class Sched2 implements Runnable {
             Task task =referencia.getTask();
             System.out.println("Proceso actual: "+task.getName()+" Tamano: "+task.getTamano()+" Tiempo: "+task.getTiempo() + "Nombre de la lista: "+nombreLista + "\n ");
             try{
-                Thread.sleep(task.getTiempo()*100);
+                Thread.sleep(task.getTiempo()*1000);
             }catch(InterruptedException e){
                 System.out.println(nombreLista + "fue interrumpida");
             }
